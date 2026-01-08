@@ -45,6 +45,7 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
     ts = datetime.now(timezone.utc).isoformat()
 
     payload = {
+        "action": "append_raw",
         "secret": SHEET_SECRET,
         "timestamp": ts,
         "user_id": user_id,
@@ -54,6 +55,7 @@ async def handle_text(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     ok, dbg = post_to_sheet(payload)
     await update.message.reply_text("Logged ✅" if ok else f"Failed ❌ ({dbg})")
+    # await update.message.reply_text(f"Logged ✅ ({dbg})" if ok else f"Failed ❌ ({dbg})")
 
 
 async def handle_voice(update: Update, context: ContextTypes.DEFAULT_TYPE):
